@@ -3,212 +3,64 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Get Key - The King</title>
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, sans-serif;
-}
-body{
-    height:100vh;
-    overflow:hidden;
-    color:white;
-}
-video.bg{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    z-index:-2;
-}
-.overlay{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.6);
-    z-index:-1;
-}
-.container{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-}
-.box{
-    background:rgba(0,0,0,0.7);
-    padding:30px;
-    border-radius:15px;
-    width:90%;
-    max-width:360px;
-}
-.logo{
-    width:110px;
-    height:110px;
-    border-radius:50%;
-    margin:auto;
-    overflow:hidden;
-    border:3px solid red;
-    cursor:pointer;
-}
-.logo img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-h2{
-    margin-top:15px;
-    margin-bottom:20px;
-}
-input{
-    width:100%;
-    padding:10px;
-    border-radius:8px;
-    border:none;
-    margin-top:10px;
-}
-button{
-    width:100%;
-    padding:12px;
-    margin-top:10px;
-    border:none;
-    border-radius:8px;
-    font-size:16px;
-    cursor:pointer;
-}
-.verify{ background:#ff0000; color:white; }
-.copy{ background:#00c853; color:white; display:none; }
-.king{ background:#2979ff; color:white; display:none; }
-.status{
-    margin-top:15px;
-    font-weight:bold;
-}
-</style>
+<title>Get Key</title>
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<video class="bg" autoplay muted loop>
+<!-- Background Video -->
+<video class="bg-video" autoplay muted loop>
     <source src="background.mp4" type="video/mp4">
 </video>
+
 <div class="overlay"></div>
 
 <div class="container">
-<div class="box">
+    <div class="box">
 
-    <div class="logo" onclick="openYT()">
-        <img src="logo.png">
+        <!-- Logo Bulat -->
+        <img src="logo.png" class="logo">
+
+        <!-- Nama -->
+        <h2 class="name">Arsalways</h2>
+
+        <!-- Tombol Verifikasi -->
+        <button id="verifyBtn" class="btn verify">Verifikasi</button>
+
+        <!-- Countdown -->
+        <p id="countdown" class="countdown"></p>
+
+        <!-- Success -->
+        <p id="success" class="success">✔ Success</p>
+
+        <!-- Tombol Setelah Verifikasi -->
+        <div id="nextButtons" class="next">
+            <button class="btn copy" onclick="copyScript()">Salin Script</button>
+            <button class="btn copy" onclick="copyWeb()">Salin Web</button>
+            <button class="btn king" onclick="openOverlay()">The King</button>
+        </div>
+
     </div>
-
-    <h2>Arsalways</h2>
-
-    <button id="verifyBtn" class="verify" onclick="startVerify()">Verifikasi</button>
-    <div id="status" class="status"></div>
-
-    <input id="keyInput" placeholder="Tempel Key di sini"
-    style="display:none" onkeydown="return false">
-
-    <button id="unlockBtn" class="verify" style="display:none"
-    onclick="openGetKey()">Unlock Key</button>
-
-    <button id="checkKeyBtn" class="verify" style="display:none"
-    onclick="checkKey()">Cek Key</button>
-
-    <button id="copyScript" class="copy" onclick="copyScript()">Salin Script</button>
-    <button id="copyWeb" class="copy" onclick="copyWeb()">Salin Web</button>
-    <button id="kingBtn" class="king" onclick="openKing()">The King</button>
-
-</div>
 </div>
 
-<!-- 🔑 PANGGIL KEY -->
-<script src="key.js"></script>
+<!-- OVERLAY THE KING -->
+<div id="webOverlay">
+    <div class="overlay-box">
+        <button class="close-btn" onclick="closeOverlay()">✕</button>
+        <iframe id="webFrame"></iframe>
+    </div>
+</div>
 
-<script>
-const GET_KEY_URL = "https://sfl.gl/PcX6yN2L";
-const YT_URL = "https://youtube.com/@arsalwaysss105?si=AmCyvuiCZ_9S1uzc";
+<!-- YOUTUBE -->
+<div class="youtube-box">
+    <img
+        src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg"
+        class="youtube-logo"
+        onclick="window.open('https://youtube.com/@arsalwaysss105?si=AmCyvuiCZ_9S1uzc', '_blank')"
+    >
+    <p class="youtube-name">Arsalways</p>
+</div>
 
-let time = 10;
-let timer;
-
-function openYT(){
-    window.open(YT_URL, "_blank");
-}
-
-function startVerify(){
-    const btn = document.getElementById("verifyBtn");
-    const status = document.getElementById("status");
-
-    btn.disabled = true;
-    btn.innerText = "Menunggu...";
-
-    timer = setInterval(()=>{
-        time--;
-        status.innerText = "Verifikasi dalam " + time + " detik";
-
-        if(time <= 0){
-            clearInterval(timer);
-            status.innerText = "Tempelkan Key";
-
-            document.getElementById("keyInput").style.display = "block";
-            document.getElementById("unlockBtn").style.display = "block";
-            document.getElementById("checkKeyBtn").style.display = "block";
-
-            btn.style.display = "none";
-        }
-    },1000);
-}
-
-function openGetKey(){
-    window.open(GET_KEY_URL, "_blank");
-}
-
-/* ✅ VALIDASI LANGSUNG DARI key.js */
-function checkKey(){
-    const key = document.getElementById("keyInput").value.trim();
-    const status = document.getElementById("status");
-
-    if(key === ""){
-        status.innerText = "❌ Key wajib ditempel";
-        return;
-    }
-
-    if(typeof KEYS === "undefined"){
-        status.innerText = "❌ key.js tidak terbaca";
-        return;
-    }
-
-    if(KEYS.includes(key)){
-        status.innerText = "✅ Key Valid";
-        document.getElementById("copyScript").style.display = "block";
-        document.getElementById("copyWeb").style.display = "block";
-        document.getElementById("kingBtn").style.display = "block";
-    } else {
-        status.innerText = "❌ Key Tidak Valid";
-    }
-}
-
-function copyScript(){
-    navigator.clipboard.writeText('-- SCRIPT THE KING\nprint("Success Get Key")');
-    alert("Script berhasil disalin");
-}
-
-function copyWeb(){
-    navigator.clipboard.writeText(window.location.href);
-    alert("Web berhasil disalin");
-}
-
-function openKing(){
-    window.open(YT_URL, "_blank");
-}
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
