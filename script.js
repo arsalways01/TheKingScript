@@ -1,31 +1,27 @@
-// Tombol Salin Script dengan hitung mundur
-const copyScriptBtn = document.getElementById("copyScriptBtn");
-const countdownText = document.getElementById("countdownText");
-const scriptArea = document.getElementById("scriptArea");
+// Teks yang ingin disalin saat tombol "Salin Teks" diklik
+const textToCopy = "Ini adalah teks yang akan disalin!";
 
-copyScriptBtn.addEventListener("click", () => {
-    let countdown = 10;
-    countdownText.textContent = `Menyalin dalam ${countdown} detik...`;
+// Web atau URL yang ingin disalin saat tombol "Salin Web" diklik
+const webToCopy = "https://github.com/ArsAlwaysss";
 
-    const interval = setInterval(() => {
-        countdown--;
-        if(countdown > 0){
-            countdownText.textContent = `Menyalin dalam ${countdown} detik...`;
-        } else {
-            clearInterval(interval);
-            // Salin script ke clipboard
-            scriptArea.style.display = "block";
-            scriptArea.select();
-            navigator.clipboard.writeText(scriptArea.value).then(() => {
-                countdownText.textContent = "Script berhasil disalin!";
-            });
-        }
-    }, 1000);
+// Tombol & pesan
+const copyTextBtn = document.getElementById('copy-text-btn');
+const copyWebBtn = document.getElementById('copy-web-btn');
+const textMessage = document.getElementById('text-message');
+const webMessage = document.getElementById('web-message');
+
+// Fungsi salin teks
+copyTextBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        textMessage.innerText = "Teks tersalin!";
+        setTimeout(() => textMessage.innerText = "", 2000);
+    });
 });
 
-// Tombol Salin Web (otomatis menyalin URL halaman)
-const copyWebBtn = document.getElementById("copyWebBtn");
-copyWebBtn.addEventListener("click", () => {
-    navigator.clipboard.writeText(window.location.href)
-        .then(() => alert("Link web berhasil disalin!"));
+// Fungsi salin web
+copyWebBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(webToCopy).then(() => {
+        webMessage.innerText = "Web tersalin!";
+        setTimeout(() => webMessage.innerText = "", 2000);
+    });
 });
