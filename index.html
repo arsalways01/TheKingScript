@@ -1,36 +1,28 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub Logo Page</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub Page Terpisah</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Video Background -->
-    <video autoplay muted loop id="bgVideo">
-        <source src="assets/bg.mp4" type="video/mp4">
-    </video>
 
-    <!-- Kontainer Tengah -->
-    <div class="center-container">
-        <img src="assets/logo.png" alt="Logo" class="logo">
-        <h1 class="username">Arsalways</h1>
+<video id="bgVideo" autoplay muted loop>
+  <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
 
-        <!-- Tombol Salin Script -->
-        <button id="copyScriptBtn">Salin Script</button>
-        <p id="countdownText"></p>
+<div class="container">
+  <img id="githubLogo" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo">
+  <h1>Arsalways</h1>
+  
+  <button id="copyTextBtn">Salin Teks Setelah 10 Detik</button>
+  <p id="countdown"></p>
 
-        <!-- Tempat Script Tersalin -->
-        <textarea id="scriptArea" readonly style="display:none;">
-// Contoh script yang ingin disalin
-console.log("Hello World");
-        </textarea>
+  <button id="copyWebBtn">Salin Web</button>
+</div>
 
-        <!-- Tombol Salin Web -->
-        <button id="copyWebBtn">Salin Web</button>
-    </div>
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
-  </html>
+</html>
