@@ -7,7 +7,6 @@
 
 html, body {
     height: 100%;
-    overflow: hidden;
 }
 
 /* Background Video */
@@ -15,23 +14,27 @@ html, body {
     position: fixed;
     top: 0;
     left: 0;
-    min-width: 100%;
-    min-height: 100%;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     z-index: -2;
+    pointer-events: none;
 }
 
-/* Overlay gelap */
+/* Overlay */
 .overlay {
     position: fixed;
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.6);
     z-index: -1;
+    pointer-events: none;
 }
 
-/* Center content */
+/* Center */
 .container {
+    position: relative;
+    z-index: 10;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -39,45 +42,56 @@ html, body {
 }
 
 .box {
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.6);
     padding: 30px;
-    border-radius: 15px;
+    border-radius: 16px;
     text-align: center;
-    color: white;
     width: 300px;
+    color: white;
 }
 
+/* Logo bulat */
 .logo {
     width: 120px;
-    margin-bottom: 10px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 3px solid white;
 }
 
-button {
+/* Tombol */
+.btn {
     width: 100%;
-    padding: 10px;
-    margin-top: 10px;
+    padding: 12px;
+    margin-top: 12px;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 15px;
+    font-weight: bold;
 }
 
+/* Verifikasi */
 .verify {
-    background: #00c853;
-    color: white;
+    background: linear-gradient(135deg, #00e676, #00c853);
+    color: black;
 }
 
+/* Copy */
 .copy {
-    background: #2979ff;
+    background: linear-gradient(135deg, #448aff, #2979ff);
     color: white;
 }
 
+/* Success */
 .success {
     margin-top: 10px;
-    color: #00e676;
+    color: #00ff9c;
     display: none;
 }
 
-.after {
+/* Tombol lanjutan */
+.next {
     display: none;
 }
