@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Script</title>
+    <title>Get Key</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,17 +17,21 @@
 
 <div class="container">
     <div class="box">
+
+        <!-- Logo -->
         <img src="logo.png" class="logo">
-        <h2>Arsalways</h2>
 
-        <button id="verifyBtn" class="verify">Verifikasi</button>
+        <!-- Tombol Verifikasi -->
+        <button id="verifyBtn" class="btn verify">Verifikasi</button>
         <p id="countdown"></p>
-        <p id="successText" class="success">✔ Success</p>
+        <p id="success" class="success">✔ Success</p>
 
-        <div id="afterVerify" class="after">
-            <button class="copy" onclick="copyScript()">Salin Script</button>
-            <button class="copy" onclick="copyWeb()">Salin Web</button>
+        <!-- Setelah Verifikasi -->
+        <div id="nextButtons" class="next">
+            <button class="btn copy" onclick="copyScript()">Salin Script</button>
+            <button class="btn copy" onclick="copyWeb()">Salin Web</button>
         </div>
+
     </div>
 </div>
 
