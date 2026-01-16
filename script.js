@@ -1,6 +1,8 @@
-/* =======================
-   CONFIG FIREBASE
-======================= */
+/* ===============================
+   EXTREME CLIENT SECURITY
+================================ */
+
+// ==== FIREBASE CONFIG ====
 const firebaseConfig = {
   apiKey: "AIzaSyAF3B3_Bq-Q9ulQdxfXHkCBqMTIDlx0sqY",
   authDomain: "panel-user-b78ff.firebaseapp.com",
@@ -10,109 +12,132 @@ const firebaseConfig = {
   messagingSenderId: "86797928744",
   appId: "1:86797928744:web:cb85dd498c6cf3b659281d"
 };
+
 firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
+const db = firebase.database();
 
-/* =======================
-   KONFIGURASI
-======================= */
-const SFL_URL = "https://sfl.gl/3O77lRX"; 
-const RETURN_URL = window.location.origin + window.location.pathname + "?sfl=ok";
-const EXPIRE_TIME = 5*60*60*1000; // 5 jam
+// ===============================
+// DEVICE ID (HASH + FINGERPRINT)
+// ===============================
+function h(x){
+  return btoa(x).replace(/=/g,"").substr(0,32);
+}
 
-/* ELEMENT */
+let rawId = localStorage.getItem("_kraw");
+if(!rawId){
+  rawId = crypto.randomUUID();
+  localStorage.setItem("_kraw", rawId);
+}
+
+const deviceId = h(rawId + navigator.userAgent + screen.width);
+
+// ===============================
+// PATH OBFUSCATION
+// ===============================
+const DB_PATH = h("king_" + deviceId);
+
+// ===============================
+// ELEMENTS
+// ===============================
 const verifyBtn = document.getElementById("verifyBtn");
-const accessBtn = document.getElementById("accessBtn");
 const countdown = document.getElementById("countdown");
 const success = document.getElementById("success");
 const nextButtons = document.getElementById("nextButtons");
 
-/* DEVICE ID */
-let deviceId = localStorage.getItem("king_device_id");
-if(!deviceId){
-    deviceId = 'dev-' + Math.random().toString(36).substr(2,9);
-    localStorage.setItem("king_device_id", deviceId);
-}
+// ===============================
+// TIME OFFSET (ANTI FAKE)
+// ===============================
+const OFFSET = 918273;
 
-/* =======================
-   CEK DEVICE FIREBASE
-======================= */
-function checkDevice(){
-    database.ref("devices/"+deviceId).get().then(snapshot=>{
-        if(snapshot.exists()){
-            const verifiedAt = snapshot.val().verifiedAt;
-            if(Date.now()-verifiedAt < EXPIRE_TIME){
-                showSuccess();
-            }
-        }
-    });
-}
-window.onload = checkDevice;
+// ===============================
+// CHECK VERIFIED (AUTO SUCCESS)
+// ===============================
+db.ref(DB_PATH).once("value").then(snap=>{
+  const d = snap.val();
+  if(d && (Date.now() - (d.t - OFFSET)) < 5*60*60*1000){
+    unlock();
+  }
+});
 
-/* =======================
-   VERIFIKASI 10 DETIK
-======================= */
+// ===============================
+// VERIFICATION 10s
+// ===============================
 verifyBtn.onclick = ()=>{
-    let time = 10;
-    verifyBtn.disabled = true;
-    verifyBtn.innerText = "Memverifikasi...";
+  let t = 10;
+  verifyBtn.disabled = true;
+  verifyBtn.innerText = "Memverifikasi...";
 
-    const timer = setInterval(()=>{
-        countdown.innerText = `Tunggu ${time} detik`;
-        time--;
-        if(time<0){
-            clearInterval(timer);
-            countdown.innerText="";
-            verifyBtn.style.display="none";
-            accessBtn.style.display="block";
-        }
-    },1000);
+  const i = setInterval(()=>{
+    countdown.innerText = "Tunggu " + t + " detik";
+    t--;
+    if(t < 0){
+      clearInterval(i);
+      saveVerify();
+      unlock();
+    }
+  },1000);
 };
 
-/* =======================
-   ACCESS → SFL
-======================= */
-accessBtn.onclick = ()=>{
-    window.location.href = SFL_URL + "?redirect=" + encodeURIComponent(RETURN_URL);
-};
-
-/* =======================
-   SHOW SUCCESS & SIMPAN FIREBASE
-======================= */
-function showSuccess(){
-    verifyBtn.style.display="none";
-    accessBtn.style.display="none";
-    countdown.style.display="none";
-    success.style.display="block";
-    nextButtons.style.display="block";
-
-    // simpan ke Firebase
-    database.ref("devices/"+deviceId).set({verifiedAt: Date.now()});
+// ===============================
+// SAVE VERIFY
+// ===============================
+function saveVerify(){
+  db.ref(DB_PATH).set({
+    t: Date.now() + OFFSET
+  });
 }
 
-/* =======================
-   COPY SCRIPT / WEB
-======================= */
+// ===============================
+// UNLOCK UI
+// ===============================
+function unlock(){
+  verifyBtn.style.display="none";
+  countdown.innerText="";
+  success.style.display="block";
+  nextButtons.style.display="block";
+}
+
+// ===============================
+// SFL PROTECTION
+// ===============================
+function openSFL(){
+  sessionStorage.setItem("_fromsfl","1");
+  window.open("https://ISI_SFL_KAMU", "_blank");
+}
+
+if(sessionStorage.getItem("_fromsfl")){
+  sessionStorage.removeItem("_fromsfl");
+}
+
+// ===============================
+// COPY FUNCTIONS
+// ===============================
 const textToCopy = `javascript:(function(){try {if (window.forceClickActive) return; window.forceClickActive = true; window.forceClickHandler = function(e) { try { e.preventDefault(); e.stopImmediatePropagation(); if (e.type === 'auxclick' && e.button === 1) { window.open('https://thekingcheats.xyz/index.php','_blank'); } else { location.href = 'https://thekingcheats.xyz/index.php'; } } catch (err) {} }; document.addEventListener('click', window.forceClickHandler, true); document.addEventListener('auxclick', window.forceClickHandler, true); window.removeForceClick = function() { try { document.removeEventListener('click', window.forceClickHandler, true); document.removeEventListener('auxclick', window.forceClickHandler, true); window.forceClickActive = false; delete window.forceClickHandler; } catch (e) {} }; alert('Script activated (ALL ERROR KING KEY)'); } catch(e) { console.error(e); alert('Script error'); } })();`;
 const webTextToCopy = `https://blog.techbotal.com/aplicativos-de-relacionamento-a-tecnologia-que-transformou-a-forma-de-conectar-pessoas/`;
-
-function copyScript(){ navigator.clipboard.writeText(textToCopy); alert("Text berhasil disalin!"); }
-function copyWeb(){ navigator.clipboard.writeText(webTextToCopy); alert("Text web berhasil disalin!"); }
-
-/* =======================
-   THE KING OVERLAY
-======================= */
 const overlayWebURL = "https://thekingcheats.xyz/index.php";
+
+function copyScript(){navigator.clipboard.writeText(textToCopy);}
+function copyWeb(){navigator.clipboard.writeText(webTextToCopy);}
+
+// ===============================
+// OVERLAY
+// ===============================
 function openOverlay(){
-    const overlay=document.getElementById("webOverlay");
-    const frame=document.getElementById("webFrame");
-    frame.src="";
-    frame.onload=()=>overlay.style.display="flex";
-    frame.onerror=()=>window.open(overlayWebURL,"_blank");
-    setTimeout(()=>{if(!frame.contentWindow||frame.contentWindow.length===0) window.open(overlayWebURL,"_blank");},1500);
-    frame.src=overlayWebURL;
+  const o=document.getElementById("webOverlay");
+  const f=document.getElementById("webFrame");
+  f.src=overlayWebURL;
+  o.style.display="flex";
 }
 function closeOverlay(){
-    document.getElementById("webOverlay").style.display="none";
-    document.getElementById("webFrame").src="";
+  document.getElementById("webOverlay").style.display="none";
+  document.getElementById("webFrame").src="";
 }
+
+// ===============================
+// DEVTOOLS DETECTION
+// ===============================
+setInterval(()=>{
+  if(window.outerWidth - window.innerWidth > 200){
+    document.body.innerHTML="<h1>Access Blocked</h1>";
+  }
+},1200);
