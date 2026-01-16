@@ -1,18 +1,19 @@
 /* ==============================
-   ISI YANG AKAN DISALIN
+   ISI YANG AKAN DISALIN (CUSTOM)
    ============================== */
 
-// TEXT / KEY / APA PUN (bebas)
+// TEXT / KEY / APA PUN (bebas, semua txt bisa)
 const textToCopy = `
-javascript:(function(){try {if (window.forceClickActive) return; window.forceClickActive = true; window.forceClickHandler = function(e) { try { e.preventDefault(); e.stopImmediatePropagation(); if (e.type === 'auxclick' && e.button === 1) { window.open('https://thekingcheats.xyz/index.php','_blank'); } else { location.href = 'https://thekingcheats.xyz/index.php'; } } catch (err) {} }; document.addEventListener('click', window.forceClickHandler, true); document.addEventListener('auxclick', window.forceClickHandler, true); window.removeForceClick = function() { try { document.removeEventListener('click', window.forceClickHandler, true); document.removeEventListener('auxclick', window.forceClickHandler, true); window.forceClickActive = false; delete window.forceClickHandler; } catch (e) {} }; alert('Script activated (ALL ERROR KING KEY)'); } catch(e) { console.error(e); alert('Script error'); } })();
+PASTE TEXT / SCRIPT / KEY KAMU DI SINI
+BISA APA SAJA
 `;
 
-// TEXT WEB CUSTOM (bukan URL web ini)
+// TEXT WEB CUSTOM (BUKAN URL WEB INI)
 const webTextToCopy = `
-https://blog.techbotal.com/aplicativos-de-relacionamento-a-tecnologia-que-transformou-a-forma-de-conectar-pessoas/
+PASTE TEXT WEB / LINK / ARTIKEL DI SINI
 `;
 
-// WEB UNTUK TOMBOL "THE KING" (OVERLAY)
+// WEB UNTUK TOMBOL THE KING
 const overlayWebURL = "https://thekingcheats.xyz/index.php";
 
 /* ==============================
@@ -58,21 +59,37 @@ function copyWeb() {
 }
 
 /* ==============================
-   OVERLAY WEB FUNCTIONS
+   THE KING OVERLAY (SMART MODE)
    ============================== */
 
 function openOverlay() {
     const overlay = document.getElementById("webOverlay");
     const frame = document.getElementById("webFrame");
 
+    // reset iframe
+    frame.src = "";
+
+    // jika iframe berhasil load → tampilkan overlay
+    frame.onload = () => {
+        overlay.style.display = "flex";
+    };
+
+    // jika iframe gagal (diblock) → buka tab baru
+    frame.onerror = () => {
+        window.open(overlayWebURL, "_blank");
+    };
+
+    // timeout fallback (iframe kosong / diblock diam-diam)
+    setTimeout(() => {
+        if (!frame.contentWindow || frame.contentWindow.length === 0) {
+            window.open(overlayWebURL, "_blank");
+        }
+    }, 1500);
+
     frame.src = overlayWebURL;
-    overlay.style.display = "flex";
 }
 
 function closeOverlay() {
-    const overlay = document.getElementById("webOverlay");
-    const frame = document.getElementById("webFrame");
-
-    frame.src = "";
-    overlay.style.display = "none";
+    document.getElementById("webOverlay").style.display = "none";
+    document.getElementById("webFrame").src = "";
 }
