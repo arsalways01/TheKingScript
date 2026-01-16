@@ -44,9 +44,9 @@ html, body {
 .box {
     background: rgba(0,0,0,0.6);
     padding: 30px;
-    border-radius: 16px;
+    border-radius: 18px;
     text-align: center;
-    width: 300px;
+    width: 320px;
     color: white;
 }
 
@@ -56,8 +56,14 @@ html, body {
     height: 120px;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 20px;
     border: 3px solid white;
+    margin-bottom: 10px;
+}
+
+/* Nama */
+.name {
+    margin-bottom: 20px;
+    font-size: 20px;
 }
 
 /* Tombol */
@@ -84,6 +90,11 @@ html, body {
     color: white;
 }
 
+/* Countdown */
+.countdown {
+    margin-top: 10px;
+}
+
 /* Success */
 .success {
     margin-top: 10px;
@@ -91,7 +102,7 @@ html, body {
     display: none;
 }
 
-/* Tombol lanjutan */
+/* Tombol lanjutan (DISSEMBUNYIKAN) */
 .next {
     display: none;
 }
