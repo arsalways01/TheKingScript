@@ -1,27 +1,38 @@
-// Teks yang ingin disalin saat tombol "Salin Teks" diklik
-const textToCopy = "Ini adalah teks yang akan disalin!";
+// SCRIPT YANG AKAN DISALIN
+const myScript = `// Isi script kamu di sini
+console.log("Hello World");
+`;
 
-// Web atau URL yang ingin disalin saat tombol "Salin Web" diklik
-const webToCopy = "https://github.com/ArsAlwaysss";
+const verifyBtn = document.getElementById("verifyBtn");
+const countdown = document.getElementById("countdown");
+const successText = document.getElementById("successText");
+const afterVerify = document.getElementById("afterVerify");
 
-// Tombol & pesan
-const copyTextBtn = document.getElementById('copy-text-btn');
-const copyWebBtn = document.getElementById('copy-web-btn');
-const textMessage = document.getElementById('text-message');
-const webMessage = document.getElementById('web-message');
+verifyBtn.addEventListener("click", () => {
+    let time = 10;
+    verifyBtn.disabled = true;
+    verifyBtn.innerText = "Menunggu...";
 
-// Fungsi salin teks
-copyTextBtn.addEventListener('click', () => {
-    navigator.clipboard.writeText(textToCopy).then(() => {
-        textMessage.innerText = "Teks tersalin!";
-        setTimeout(() => textMessage.innerText = "", 2000);
-    });
+    const timer = setInterval(() => {
+        countdown.innerText = "Tunggu " + time + " detik...";
+        time--;
+
+        if (time < 0) {
+            clearInterval(timer);
+            countdown.innerText = "";
+            successText.style.display = "block";
+            afterVerify.style.display = "block";
+            verifyBtn.style.display = "none";
+        }
+    }, 1000);
 });
 
-// Fungsi salin web
-copyWebBtn.addEventListener('click', () => {
-    navigator.clipboard.writeText(webToCopy).then(() => {
-        webMessage.innerText = "Web tersalin!";
-        setTimeout(() => webMessage.innerText = "", 2000);
-    });
-});
+function copyScript() {
+    navigator.clipboard.writeText(myScript);
+    alert("Script berhasil disalin!");
+}
+
+function copyWeb() {
+    navigator.clipboard.writeText(window.location.href);
+    alert("Link web berhasil disalin!");
+}
