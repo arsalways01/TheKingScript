@@ -1,12 +1,12 @@
-// SCRIPT YANG AKAN DISALIN
-const myScript = `// Isi script kamu di sini
-console.log("Hello World");
+// SCRIPT CUSTOM KAMU (EDIT SESUAI MAU)
+const customScript = `// Script custom kamu
+console.log("Script berhasil disalin!");
 `;
 
 const verifyBtn = document.getElementById("verifyBtn");
 const countdown = document.getElementById("countdown");
-const successText = document.getElementById("successText");
-const afterVerify = document.getElementById("afterVerify");
+const success = document.getElementById("success");
+const nextButtons = document.getElementById("nextButtons");
 
 verifyBtn.addEventListener("click", () => {
     let time = 10;
@@ -14,21 +14,21 @@ verifyBtn.addEventListener("click", () => {
     verifyBtn.innerText = "Menunggu...";
 
     const timer = setInterval(() => {
-        countdown.innerText = "Tunggu " + time + " detik...";
+        countdown.innerText = "Tunggu " + time + " detik";
         time--;
 
         if (time < 0) {
             clearInterval(timer);
             countdown.innerText = "";
-            successText.style.display = "block";
-            afterVerify.style.display = "block";
+            success.style.display = "block";
+            nextButtons.style.display = "block";
             verifyBtn.style.display = "none";
         }
     }, 1000);
 });
 
 function copyScript() {
-    navigator.clipboard.writeText(myScript);
+    navigator.clipboard.writeText(customScript);
     alert("Script berhasil disalin!");
 }
 
