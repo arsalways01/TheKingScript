@@ -37,8 +37,19 @@
         <div id="nextButtons" class="next">
             <button class="btn copy" onclick="copyScript()">Salin Script</button>
             <button class="btn copy" onclick="copyWeb()">Salin Web</button>
+
+            <!-- TOMBOL BARU -->
+            <button class="btn king" onclick="openOverlay()">The King</button>
         </div>
 
+    </div>
+</div>
+
+<!-- OVERLAY WEB (POPUP) -->
+<div id="webOverlay" class="web-overlay">
+    <div class="web-box">
+        <button class="close-btn" onclick="closeOverlay()">✕</button>
+        <iframe id="webFrame"></iframe>
     </div>
 </div>
 
