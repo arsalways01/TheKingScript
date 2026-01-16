@@ -5,6 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Get Key</title>
 <link rel="stylesheet" href="style.css">
+<style>
+/* Minimal styling tambahan untuk tombol ACCESS */
+.access {
+    display: none;
+    background: #ff9800;
+    color: #fff;
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.success {
+    display: none;
+    color: #00e676;
+    font-size: 18px;
+    margin-top: 15px;
+}
+</style>
 </head>
 <body>
 
@@ -26,6 +47,9 @@
 
         <!-- Tombol Verifikasi -->
         <button id="verifyBtn" class="btn verify">Verifikasi</button>
+
+        <!-- Tombol Access (setelah countdown) -->
+        <button id="accessBtn" class="access">ACCESS</button>
 
         <!-- Countdown -->
         <p id="countdown" class="countdown"></p>
