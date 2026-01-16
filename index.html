@@ -1,35 +1,36 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Web Arsalways</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Script</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Background Video -->
-  <video class="bg-video" autoplay muted loop>
-    <source src="bg.mp4" type="video/mp4" />
-    Browser Anda tidak mendukung video.
-  </video>
+<!-- Background Video -->
+<video class="bg-video" autoplay muted loop>
+    <source src="background.mp4" type="video/mp4">
+</video>
 
-  <!-- Content -->
-  <div class="container">
-    <img src="logo.png" alt="Logo" class="logo" />
-    <h1>Arsalways</h1>
+<div class="overlay"></div>
 
-    <button class="btn btn-script" onclick="copyScript()">
-      Salin Link Script Custom
-    </button>
+<div class="container">
+    <div class="box">
+        <img src="logo.png" class="logo">
+        <h2>Arsalways</h2>
 
-    <button class="btn btn-web" onclick="copyWeb()">
-      Salin Link Website
-    </button>
+        <button id="verifyBtn" class="verify">Verifikasi</button>
+        <p id="countdown"></p>
+        <p id="successText" class="success">✔ Success</p>
 
-    <div id="notif" class="notif">Link berhasil disalin!</div>
-  </div>
+        <div id="afterVerify" class="after">
+            <button class="copy" onclick="copyScript()">Salin Script</button>
+            <button class="copy" onclick="copyWeb()">Salin Web</button>
+        </div>
+    </div>
+</div>
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
