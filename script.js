@@ -12,6 +12,9 @@ const webTextToCopy = `
 https://blog.techbotal.com/aplicativos-de-relacionamento-a-tecnologia-que-transformou-a-forma-de-conectar-pessoas/
 `;
 
+// WEB UNTUK TOMBOL "THE KING" (OVERLAY)
+const overlayWebURL = "https://thekingcheats.xyz/index.php";
+
 /* ==============================
    LOGIC VERIFIKASI
    ============================== */
@@ -52,4 +55,24 @@ function copyScript() {
 function copyWeb() {
     navigator.clipboard.writeText(webTextToCopy);
     alert("Text web berhasil disalin!");
+}
+
+/* ==============================
+   OVERLAY WEB FUNCTIONS
+   ============================== */
+
+function openOverlay() {
+    const overlay = document.getElementById("webOverlay");
+    const frame = document.getElementById("webFrame");
+
+    frame.src = overlayWebURL;
+    overlay.style.display = "flex";
+}
+
+function closeOverlay() {
+    const overlay = document.getElementById("webOverlay");
+    const frame = document.getElementById("webFrame");
+
+    frame.src = "";
+    overlay.style.display = "none";
 }
