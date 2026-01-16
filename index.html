@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Logo Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Video Background -->
+    <video autoplay muted loop id="bgVideo">
+        <source src="assets/bg.mp4" type="video/mp4">
+    </video>
+
+    <!-- Kontainer Tengah -->
+    <div class="center-container">
+        <img src="assets/logo.png" alt="Logo" class="logo">
+        <h1 class="username">Arsalways</h1>
+
+        <!-- Tombol Salin Script -->
+        <button id="copyScriptBtn">Salin Script</button>
+        <p id="countdownText"></p>
+
+        <!-- Tempat Script Tersalin -->
+        <textarea id="scriptArea" readonly style="display:none;">
+// Contoh script yang ingin disalin
+console.log("Hello World");
+        </textarea>
+
+        <!-- Tombol Salin Web -->
+        <button id="copyWebBtn">Salin Web</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+  </html>
