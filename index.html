@@ -3,71 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Get Key</title>
+<title>Get Key - The King</title>
 <link rel="stylesheet" href="style.css">
 <style>
-/* Minimal styling tambahan untuk tombol ACCESS */
-.access {
-    display: none;
-    background: #ff9800;
-    color: #fff;
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-}
-.success {
-    display: none;
-    color: #00e676;
-    font-size: 18px;
-    margin-top: 15px;
-}
+.access { display:none; background:#ff9800;color:#fff;width:100%;padding:12px;margin-top:10px;border:none;border-radius:8px;font-size:16px;cursor:pointer;}
+.success { display:none; color:#00e676; font-size:18px; margin-top:15px; }
 </style>
 </head>
 <body>
 
-<!-- Background Video -->
 <video class="bg-video" autoplay muted loop>
     <source src="background.mp4" type="video/mp4">
 </video>
-
 <div class="overlay"></div>
 
 <div class="container">
-    <div class="box">
+<div class="box">
 
-        <!-- Logo Bulat -->
-        <img src="logo.png" class="logo">
+    <img src="logo.png" class="logo">
+    <h2 class="name">Arsalways</h2>
 
-        <!-- Nama -->
-        <h2 class="name">Arsalways</h2>
+    <button id="verifyBtn" class="btn verify">Verifikasi</button>
+    <button id="accessBtn" class="access">ACCESS</button>
+    <p id="countdown"></p>
+    <p id="success" class="success">✔ Success</p>
 
-        <!-- Tombol Verifikasi -->
-        <button id="verifyBtn" class="btn verify">Verifikasi</button>
-
-        <!-- Tombol Access (setelah countdown) -->
-        <button id="accessBtn" class="access">ACCESS</button>
-
-        <!-- Countdown -->
-        <p id="countdown" class="countdown"></p>
-
-        <!-- Success -->
-        <p id="success" class="success">✔ Success</p>
-
-        <!-- Tombol Setelah Verifikasi -->
-        <div id="nextButtons" class="next">
-            <button class="btn copy" onclick="copyScript()">Salin Script</button>
-            <button class="btn copy" onclick="copyWeb()">Salin Web</button>
-            <button class="btn king" onclick="openOverlay()">The King</button>
-        </div>
-
+    <div id="nextButtons" class="next">
+        <button class="btn copy" onclick="copyScript()">Salin Script</button>
+        <button class="btn copy" onclick="copyWeb()">Salin Web</button>
+        <button class="btn king" onclick="openOverlay()">The King</button>
     </div>
+
+</div>
 </div>
 
-<!-- OVERLAY THE KING -->
 <div id="webOverlay">
     <div class="overlay-box">
         <button class="close-btn" onclick="closeOverlay()">✕</button>
@@ -75,15 +44,16 @@
     </div>
 </div>
 
-<!-- YOUTUBE -->
 <div class="youtube-box">
-    <img
-        src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg"
-        class="youtube-logo"
-        onclick="window.open('https://youtube.com/@arsalwaysss105?si=AmCyvuiCZ_9S1uzc', '_blank')"
-    >
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg"
+    class="youtube-logo"
+    onclick="window.open('https://youtube.com/@arsalwaysss105?si=AmCyvuiCZ_9S1uzc','_blank')">
     <p class="youtube-name">Arsalways</p>
 </div>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <script src="script.js"></script>
 </body>
