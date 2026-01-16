@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web GitHub Saya</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web Arsalways</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-    <!-- Video Background -->
-    <video autoplay muted loop id="bg-video">
-        <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
-    </video>
+  <!-- Background Video -->
+  <video class="bg-video" autoplay muted loop>
+    <source src="bg.mp4" type="video/mp4" />
+    Browser Anda tidak mendukung video.
+  </video>
 
-    <div class="center-content">
-        <!-- Logo -->
-        <div class="logo"></div>
+  <!-- Content -->
+  <div class="container">
+    <img src="logo.png" alt="Logo" class="logo" />
+    <h1>Arsalways</h1>
 
-        <!-- Nama -->
-        <div class="name">ArsAlways</div>
+    <button class="btn btn-script" onclick="copyScript()">
+      Salin Link Script Custom
+    </button>
 
-        <!-- Tombol Salin Teks -->
-        <button class="btn" id="copy-text-btn">Salin Teks</button>
-        <div id="text-message" class="message"></div>
+    <button class="btn btn-web" onclick="copyWeb()">
+      Salin Link Website
+    </button>
 
-        <!-- Tombol Salin Web -->
-        <button class="btn" id="copy-web-btn">Salin Web</button>
-        <div id="web-message" class="message"></div>
-    </div>
+    <div id="notif" class="notif">Link berhasil disalin!</div>
+  </div>
 
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
