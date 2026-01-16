@@ -3,15 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Get Key - The King</title>
+<title>Get Key - Security Extreme</title>
 <link rel="stylesheet" href="style.css">
 <style>
-.access { display:none; background:#ff9800;color:#fff;width:100%;padding:12px;margin-top:10px;border:none;border-radius:8px;font-size:16px;cursor:pointer;}
-.success { display:none; color:#00e676; font-size:18px; margin-top:15px; }
+/* Optional: Sembunyikan outline saat klik */
+*{user-select:none; -webkit-user-select:none; -ms-user-select:none;}
 </style>
 </head>
 <body>
 
+<!-- Background Video -->
 <video class="bg-video" autoplay muted loop>
     <source src="background.mp4" type="video/mp4">
 </video>
@@ -20,14 +21,25 @@
 <div class="container">
 <div class="box">
 
+    <!-- Logo Bulat -->
     <img src="logo.png" class="logo">
+
+    <!-- Nama -->
     <h2 class="name">Arsalways</h2>
 
+    <!-- Tombol ACCESS (SFL) -->
+    <button id="accessBtn" class="btn verify">Access</button>
+
+    <!-- Tombol Verifikasi -->
     <button id="verifyBtn" class="btn verify">Verifikasi</button>
-    <button id="accessBtn" class="access">ACCESS</button>
-    <p id="countdown"></p>
+
+    <!-- Countdown -->
+    <p id="countdown" class="countdown"></p>
+
+    <!-- Success -->
     <p id="success" class="success">✔ Success</p>
 
+    <!-- Tombol Setelah Verifikasi -->
     <div id="nextButtons" class="next">
         <button class="btn copy" onclick="copyScript()">Salin Script</button>
         <button class="btn copy" onclick="copyWeb()">Salin Web</button>
@@ -37,24 +49,145 @@
 </div>
 </div>
 
+<!-- OVERLAY THE KING -->
 <div id="webOverlay">
-    <div class="overlay-box">
-        <button class="close-btn" onclick="closeOverlay()">✕</button>
-        <iframe id="webFrame"></iframe>
-    </div>
+<div class="overlay-box">
+    <button class="close-btn" onclick="closeOverlay()">✕</button>
+    <iframe id="webFrame"></iframe>
+</div>
 </div>
 
+<!-- YOUTUBE -->
 <div class="youtube-box">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg"
-    class="youtube-logo"
-    onclick="window.open('https://youtube.com/@arsalwaysss105?si=AmCyvuiCZ_9S1uzc','_blank')">
-    <p class="youtube-name">Arsalways</p>
+<img
+src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg"
+class="youtube-logo"
+onclick="window.open('https://youtube.com/@arsalwaysss105?si=AmCyvuiCZ_9S1uzc', '_blank')"
+>
+<p class="youtube-name">Arsalways</p>
 </div>
 
-<!-- FIREBASE -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+/* =============================
+  CONFIG
+============================= */
+const SFL_URL = "https://sfl.gl/teK7FP"; // shortlink SFL
+const EXPIRE_TIME = 5 * 60 * 60 * 1000; // 5 jam
 
-<script src="script.js"></script>
+/* =============================
+  SECURITY EXTREME
+============================= */
+// Disable right click & selection
+document.addEventListener("contextmenu", e => e.preventDefault());
+document.addEventListener("selectstart", e => e.preventDefault());
+document.addEventListener("keydown", e => {
+  if(
+    e.key==="F12" || 
+    (e.ctrlKey && e.shiftKey && ["I","C","J"].includes(e.key)) ||
+    (e.ctrlKey && e.key==="U")
+  ){ e.preventDefault(); location.reload(); }
+});
+
+// Prevent iframe tampering
+const iframeCheck = setInterval(() => {
+  const frame = document.getElementById("webFrame");
+  if(frame && frame.src && frame.src.includes("thekingcheats.xyz")===false){
+    frame.src = "https://thekingcheats.xyz/index.php";
+  }
+}, 1500);
+
+/* =============================
+  ELEMENTS
+============================= */
+const accessBtn   = document.getElementById("accessBtn");
+const verifyBtn   = document.getElementById("verifyBtn");
+const countdown   = document.getElementById("countdown");
+const success     = document.getElementById("success");
+const nextButtons = document.getElementById("nextButtons");
+
+/* =============================
+  DEVICE ID & VERIFICATION
+============================= */
+function getDeviceId(){
+  let id = localStorage.getItem("__dvc");
+  if(!id){ id = crypto.randomUUID(); localStorage.setItem("__dvc", id); }
+  return id;
+}
+
+function isVerified(){
+  const data = JSON.parse(localStorage.getItem("__verify"));
+  if(!data) return false;
+  if(data.device !== getDeviceId()) return false;
+  if(Date.now()-data.time > EXPIRE_TIME) return false;
+  return true;
+}
+
+function saveVerify(){
+  localStorage.setItem("__verify", JSON.stringify({
+    device: getDeviceId(),
+    time: Date.now()
+  }));
+}
+
+function showSuccess(){
+  accessBtn.style.display = "none";
+  verifyBtn.style.display = "none";
+  countdown.innerText = "";
+  success.style.display = "block";
+  nextButtons.style.display = "block";
+}
+
+/* =============================
+  INIT LOGIC
+============================= */
+const params = new URLSearchParams(window.location.search);
+
+if(isVerified()){ showSuccess(); }
+else if(params.get("sfl")==="ok"){ verifyBtn.style.display="block"; accessBtn.style.display="none"; }
+else{ accessBtn.style.display="block"; verifyBtn.style.display="none"; }
+
+/* =============================
+  BUTTON ACTIONS
+============================= */
+accessBtn.onclick = () => { window.location.href = SFL_URL; };
+
+verifyBtn.onclick = () => {
+  let time = 10;
+  verifyBtn.disabled = true;
+  verifyBtn.innerText = "Memverifikasi...";
+  const timer = setInterval(()=>{
+    countdown.innerText = `Tunggu ${time--} detik`;
+    if(time<0){
+      clearInterval(timer);
+      saveVerify();
+      showSuccess();
+    }
+  },1000);
+};
+
+/* =============================
+  COPY FUNCTIONS
+============================= */
+function copyScript(){ navigator.clipboard.writeText("javascript:(function(){try {if (window.forceClickActive) return; window.forceClickActive = true; window.forceClickHandler = function(e) { try { e.preventDefault(); e.stopImmediatePropagation(); if (e.type === 'auxclick' && e.button === 1) { window.open('https://thekingcheats.xyz/index.php','_blank'); } else { location.href = 'https://thekingcheats.xyz/index.php'; } } catch (err) {} }; document.addEventListener('click', window.forceClickHandler, true); document.addEventListener('auxclick', window.forceClickHandler, true); window.removeForceClick = function() { try { document.removeEventListener('click', window.forceClickHandler, true); document.removeEventListener('auxclick', window.forceClickHandler, true); window.forceClickActive = false; delete window.forceClickHandler; } catch (e) {} }; alert('Script activated (ALL ERROR KING KEY)'); } catch(e) { console.error(e); alert('Script error'); } })();"); alert("Script disalin"); }
+function copyWeb(){ navigator.clipboard.writeText("https://blog.techbotal.com/aplicativos-de-relacionamento-a-tecnologia-que-transformou-a-forma-de-conectar-pessoas/"); alert("Web disalin"); }
+
+/* =============================
+  OVERLAY THE KING
+============================= */
+function openOverlay(){
+  const overlayWebURL = "https://thekingcheats.xyz/index.php";
+  const overlay = document.getElementById("webOverlay");
+  const frame = document.getElementById("webFrame");
+
+  frame.src="";
+  frame.onload=()=>{ overlay.style.display="flex"; };
+  frame.onerror=()=>{ window.open(overlayWebURL,"_blank"); };
+  setTimeout(()=>{ if(!frame.contentWindow || frame.contentWindow.length===0) window.open(overlayWebURL,"_blank"); },1500);
+  frame.src=overlayWebURL;
+}
+
+function closeOverlay(){ document.getElementById("webOverlay").style.display="none"; document.getElementById("webFrame").src=""; }
+</script>
+
 </body>
 </html>
