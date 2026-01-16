@@ -1,6 +1,6 @@
-// SCRIPT CUSTOM KAMU (EDIT SESUAI MAU)
-const customScript = `// Script custom kamu
-console.log("Script berhasil disalin!");
+// SCRIPT YANG AKAN DISALIN (CUSTOM)
+const customScript = `// Script kamu di sini
+console.log("Berhasil!");
 `;
 
 const verifyBtn = document.getElementById("verifyBtn");
@@ -11,10 +11,10 @@ const nextButtons = document.getElementById("nextButtons");
 verifyBtn.addEventListener("click", () => {
     let time = 10;
     verifyBtn.disabled = true;
-    verifyBtn.innerText = "Menunggu...";
+    verifyBtn.innerText = "Memverifikasi...";
 
     const timer = setInterval(() => {
-        countdown.innerText = "Tunggu " + time + " detik";
+        countdown.innerText = `Tunggu ${time} detik`;
         time--;
 
         if (time < 0) {
