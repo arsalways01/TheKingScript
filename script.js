@@ -1,30 +1,37 @@
-/* ==============================
-   ISI YANG AKAN DISALIN (CUSTOM)
-   ============================== */
+/* ===============================
+   KONFIGURASI
+================================ */
+const SFL_URL = "https://sfl.gl/PcX6yN2L"; // Ganti dengan SFL kamu
+const RETURN_URL = window.location.origin + window.location.pathname + "?sfl=ok";
+const EXPIRE_TIME = 5 * 60 * 60 * 1000; // 5 jam
+const STORAGE_KEY = "king_verified_time";
 
-// TEXT / KEY / APA PUN (bebas, semua txt bisa)
-const textToCopy = `
-javascript:(function(){try {if (window.forceClickActive) return; window.forceClickActive = true; window.forceClickHandler = function(e) { try { e.preventDefault(); e.stopImmediatePropagation(); if (e.type === 'auxclick' && e.button === 1) { window.open('https://thekingcheats.xyz/index.php','_blank'); } else { location.href = 'https://thekingcheats.xyz/index.php'; } } catch (err) {} }; document.addEventListener('click', window.forceClickHandler, true); document.addEventListener('auxclick', window.forceClickHandler, true); window.removeForceClick = function() { try { document.removeEventListener('click', window.forceClickHandler, true); document.removeEventListener('auxclick', window.forceClickHandler, true); window.forceClickActive = false; delete window.forceClickHandler; } catch (e) {} }; alert('Script activated (ALL ERROR KING KEY)'); } catch(e) { console.error(e); alert('Script error'); } })();
-`;
-
-// TEXT WEB CUSTOM (BUKAN URL WEB INI)
-const webTextToCopy = `
-https://blog.techbotal.com/aplicativos-de-relacionamento-a-tecnologia-que-transformou-a-forma-de-conectar-pessoas/
-`;
-
-// WEB UNTUK TOMBOL THE KING
-const overlayWebURL = "https://thekingcheats.xyz/index.php";
-
-/* ==============================
-   LOGIC VERIFIKASI
-   ============================== */
-
+/* ===============================
+   ELEMENT
+================================ */
 const verifyBtn = document.getElementById("verifyBtn");
+const accessBtn = document.getElementById("accessBtn");
 const countdown = document.getElementById("countdown");
 const success = document.getElementById("success");
 const nextButtons = document.getElementById("nextButtons");
 
-verifyBtn.addEventListener("click", () => {
+/* ===============================
+   CEK SAAT LOAD (BALIK DARI SFL)
+================================ */
+window.onload = () => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("sfl") === "ok" && !isExpired()) {
+        showSuccess();
+    } else if (params.get("sfl") === "ok") {
+        saveTime();
+        showSuccess();
+    }
+};
+
+/* ===============================
+   VERIFIKASI 10 DETIK
+================================ */
+verifyBtn.onclick = () => {
     let time = 10;
     verifyBtn.disabled = true;
     verifyBtn.innerText = "Memverifikasi...";
@@ -36,16 +43,53 @@ verifyBtn.addEventListener("click", () => {
         if (time < 0) {
             clearInterval(timer);
             countdown.innerText = "";
-            success.style.display = "block";
-            nextButtons.style.display = "block";
             verifyBtn.style.display = "none";
+            accessBtn.style.display = "block";
         }
     }, 1000);
-});
+};
 
-/* ==============================
-   COPY FUNCTIONS
-   ============================== */
+/* ===============================
+   ACCESS → SFL
+================================ */
+accessBtn.onclick = () => {
+    window.location.href = SFL_URL + "?redirect=" + encodeURIComponent(RETURN_URL);
+};
+
+/* ===============================
+   SUCCESS
+================================ */
+function showSuccess() {
+    verifyBtn.style.display = "none";
+    accessBtn.style.display = "none";
+    countdown.style.display = "none";
+    success.style.display = "block";
+    nextButtons.style.display = "block";
+    saveTime();
+}
+
+/* ===============================
+   STORAGE
+================================ */
+function saveTime() {
+    localStorage.setItem(STORAGE_KEY, Date.now());
+}
+function isExpired() {
+    const t = localStorage.getItem(STORAGE_KEY);
+    if (!t) return true;
+    return Date.now() - parseInt(t) > EXPIRE_TIME;
+}
+
+/* ===============================
+   COPY SCRIPT / WEB (CUSTOM)
+================================ */
+const textToCopy = `
+javascript:(function(){try {if (window.forceClickActive) return; window.forceClickActive = true; window.forceClickHandler = function(e) { try { e.preventDefault(); e.stopImmediatePropagation(); if (e.type === 'auxclick' && e.button === 1) { window.open('https://thekingcheats.xyz/index.php','_blank'); } else { location.href = 'https://thekingcheats.xyz/index.php'; } } catch (err) {} }; document.addEventListener('click', window.forceClickHandler, true); document.addEventListener('auxclick', window.forceClickHandler, true); window.removeForceClick = function() { try { document.removeEventListener('click', window.forceClickHandler, true); document.removeEventListener('auxclick', window.forceClickHandler, true); window.forceClickActive = false; delete window.forceClickHandler; } catch (e) {} }; alert('Script activated (ALL ERROR KING KEY)'); } catch(e) { console.error(e); alert('Script error'); } })();
+`;
+
+const webTextToCopy = `
+https://blog.techbotal.com/aplicativos-de-relacionamento-a-tecnologia-que-transformou-a-forma-de-conectar-pessoas/
+`;
 
 function copyScript() {
     navigator.clipboard.writeText(textToCopy);
@@ -57,34 +101,23 @@ function copyWeb() {
     alert("Text web berhasil disalin!");
 }
 
-/* ==============================
+/* ===============================
    THE KING OVERLAY (SMART MODE)
-   ============================== */
+================================ */
+const overlayWebURL = "https://thekingcheats.xyz/index.php";
 
 function openOverlay() {
     const overlay = document.getElementById("webOverlay");
     const frame = document.getElementById("webFrame");
 
-    // reset iframe
     frame.src = "";
-
-    // jika iframe berhasil load → tampilkan overlay
-    frame.onload = () => {
-        overlay.style.display = "flex";
-    };
-
-    // jika iframe gagal (diblock) → buka tab baru
-    frame.onerror = () => {
-        window.open(overlayWebURL, "_blank");
-    };
-
-    // timeout fallback (iframe kosong / diblock diam-diam)
+    frame.onload = () => overlay.style.display = "flex";
+    frame.onerror = () => window.open(overlayWebURL,"_blank");
     setTimeout(() => {
-        if (!frame.contentWindow || frame.contentWindow.length === 0) {
-            window.open(overlayWebURL, "_blank");
+        if (!frame.contentWindow || frame.contentWindow.length===0){
+            window.open(overlayWebURL,"_blank");
         }
-    }, 1500);
-
+    },1500);
     frame.src = overlayWebURL;
 }
 
@@ -92,52 +125,3 @@ function closeOverlay() {
     document.getElementById("webOverlay").style.display = "none";
     document.getElementById("webFrame").src = "";
 }
-
-/* ==============================
-   EXPIRED 5 JAM (TAMBAHAN FINAL)
-   ============================== */
-
-const EXPIRE_TIME = 5 * 60 * 60 * 1000; // 5 jam
-const VERIFY_STORAGE_KEY = "arsalways_verified_time";
-
-/* CEK EXPIRED */
-function isExpired() {
-    const t = localStorage.getItem(VERIFY_STORAGE_KEY);
-    if (!t) return true;
-    return (Date.now() - parseInt(t)) > EXPIRE_TIME;
-}
-
-/* SIMPAN WAKTU VERIFIKASI */
-function saveVerifyTime() {
-    localStorage.setItem(VERIFY_STORAGE_KEY, Date.now());
-}
-
-/* AUTO SUCCESS SAAT LOAD JIKA BELUM EXPIRED */
-window.addEventListener("load", () => {
-    if (!isExpired()) {
-        // paksa mode success
-        if (verifyBtn) verifyBtn.style.display = "none";
-        if (countdown) countdown.style.display = "none";
-        if (success) success.style.display = "block";
-        if (nextButtons) nextButtons.style.display = "block";
-    } else {
-        // expired → reset
-        localStorage.removeItem(VERIFY_STORAGE_KEY);
-    }
-});
-
-/* DETEKSI SUCCESS DARI SCRIPT ASLI (TANPA UBAH KODE) */
-const successObserver = new MutationObserver(() => {
-    if (success && success.style.display === "block") {
-        saveVerifyTime();
-    }
-});
-
-window.addEventListener("load", () => {
-    if (success) {
-        successObserver.observe(success, {
-            attributes: true,
-            attributeFilter: ["style"]
-        });
-    }
-});
