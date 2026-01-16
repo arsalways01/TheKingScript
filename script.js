@@ -16,7 +16,7 @@ const database = firebase.database();
 /* =======================
    KONFIGURASI
 ======================= */
-const SFL_URL = "https://sfl.gl/DeTQO"; 
+const SFL_URL = "https://sfl.gl/3O77lRX"; 
 const RETURN_URL = window.location.origin + window.location.pathname + "?sfl=ok";
 const EXPIRE_TIME = 5*60*60*1000; // 5 jam
 
