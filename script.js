@@ -92,3 +92,52 @@ function closeOverlay() {
     document.getElementById("webOverlay").style.display = "none";
     document.getElementById("webFrame").src = "";
 }
+
+/* ==============================
+   EXPIRED 5 JAM (TAMBAHAN FINAL)
+   ============================== */
+
+const EXPIRE_TIME = 5 * 60 * 60 * 1000; // 5 jam
+const VERIFY_STORAGE_KEY = "arsalways_verified_time";
+
+/* CEK EXPIRED */
+function isExpired() {
+    const t = localStorage.getItem(VERIFY_STORAGE_KEY);
+    if (!t) return true;
+    return (Date.now() - parseInt(t)) > EXPIRE_TIME;
+}
+
+/* SIMPAN WAKTU VERIFIKASI */
+function saveVerifyTime() {
+    localStorage.setItem(VERIFY_STORAGE_KEY, Date.now());
+}
+
+/* AUTO SUCCESS SAAT LOAD JIKA BELUM EXPIRED */
+window.addEventListener("load", () => {
+    if (!isExpired()) {
+        // paksa mode success
+        if (verifyBtn) verifyBtn.style.display = "none";
+        if (countdown) countdown.style.display = "none";
+        if (success) success.style.display = "block";
+        if (nextButtons) nextButtons.style.display = "block";
+    } else {
+        // expired → reset
+        localStorage.removeItem(VERIFY_STORAGE_KEY);
+    }
+});
+
+/* DETEKSI SUCCESS DARI SCRIPT ASLI (TANPA UBAH KODE) */
+const successObserver = new MutationObserver(() => {
+    if (success && success.style.display === "block") {
+        saveVerifyTime();
+    }
+});
+
+window.addEventListener("load", () => {
+    if (success) {
+        successObserver.observe(success, {
+            attributes: true,
+            attributeFilter: ["style"]
+        });
+    }
+});
