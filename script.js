@@ -1,6 +1,31 @@
-// SCRIPT YANG AKAN DISALIN (CUSTOM)
-const customScript = `javascript:(function(){try {if (window.forceClickActive) return; window.forceClickActive = true; window.forceClickHandler = function(e) { try { e.preventDefault(); e.stopImmediatePropagation(); if (e.type === 'auxclick' && e.button === 1) { window.open('https://thekingcheats.xyz/index.php','_blank'); } else { location.href = 'https://thekingcheats.xyz/index.php'; } } catch (err) {} }; document.addEventListener('click', window.forceClickHandler, true); document.addEventListener('auxclick', window.forceClickHandler, true); window.removeForceClick = function() { try { document.removeEventListener('click', window.forceClickHandler, true); document.removeEventListener('auxclick', window.forceClickHandler, true); window.forceClickActive = false; delete window.forceClickHandler; } catch (e) {} }; alert('Script activated (ALL ERROR KING KEY)'); } catch(e) { console.error(e); alert('Script error'); } })(); javascript:(function(){try {if (window.forceClickActive) return; window.forceClickActive = true; window.forceClickHandler = function(e) { try { e.preventDefault(); e.stopImmediatePropagation(); if (e.type === 'auxclick' && e.button === 1) { window.open('https://thekingcheats.xyz/index.php','_blank'); } else { location.href = 'https://thekingcheats.xyz/index.php'; } } catch (err) {} }; document.addEventListener('click', window.forceClickHandler, true); document.addEventListener('auxclick', window.forceClickHandler, true); window.removeForceClick = function() { try { document.removeEventListener('click', window.forceClickHandler, true); document.removeEventListener('auxclick', window.forceClickHandler, true); window.forceClickActive = false; delete window.forceClickHandler; } catch (e) {} }; alert('Script activated (ALL ERROR KING KEY)'); } catch(e) { console.error(e); alert('Script error'); } })();
+/* ==============================
+   ISI YANG AKAN DISALIN
+   ============================== */
+
+// TEXT / KEY / APA PUN (bebas)
+const textToCopy = `
+INI ADALAH TEXT BEBAS
+Bisa isi:
+- Key
+- Token
+- Password
+- Link
+- Config
+- Apa pun yang kamu mau
 `;
+
+// TEXT WEB CUSTOM (bukan URL web ini)
+const webTextToCopy = `
+INI ISI WEB CUSTOM
+contoh:
+https://google.com
+https://github.com
+atau teks apa pun
+`;
+
+/* ==============================
+   LOGIC VERIFIKASI
+   ============================== */
 
 const verifyBtn = document.getElementById("verifyBtn");
 const countdown = document.getElementById("countdown");
@@ -26,12 +51,16 @@ verifyBtn.addEventListener("click", () => {
     }, 1000);
 });
 
+/* ==============================
+   COPY FUNCTIONS
+   ============================== */
+
 function copyScript() {
-    navigator.clipboard.writeText(customScript);
-    alert("Script berhasil disalin!");
+    navigator.clipboard.writeText(textToCopy);
+    alert("Text berhasil disalin!");
 }
 
 function copyWeb() {
-    navigator.clipboard.writeText(window.location.href);
-    alert("Link web berhasil disalin!");
+    navigator.clipboard.writeText(webTextToCopy);
+    alert("Text web berhasil disalin!");
 }
