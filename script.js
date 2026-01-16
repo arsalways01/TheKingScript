@@ -1,7 +1,7 @@
 /* ===============================
    KONFIGURASI
 ================================ */
-const SFL_URL = "https://sfl.gl/PcX6yN2L"; // Ganti dengan SFL kamu
+const SFL_URL = "https://sfl.gl/DeTQO"; // Ganti dengan SFL kamu
 const RETURN_URL = window.location.origin + window.location.pathname + "?sfl=ok";
 const EXPIRE_TIME = 5 * 60 * 60 * 1000; // 5 jam
 const STORAGE_KEY = "king_verified_time";
