@@ -12,14 +12,11 @@
     box-sizing:border-box;
     font-family:Arial, sans-serif;
 }
-
 body{
     height:100vh;
     overflow:hidden;
     color:white;
 }
-
-/* BACKGROUND VIDEO */
 video.bg{
     position:fixed;
     top:0;
@@ -29,7 +26,6 @@ video.bg{
     object-fit:cover;
     z-index:-2;
 }
-
 .overlay{
     position:fixed;
     top:0;
@@ -39,8 +35,6 @@ video.bg{
     background:rgba(0,0,0,0.6);
     z-index:-1;
 }
-
-/* LAYOUT */
 .container{
     height:100vh;
     display:flex;
@@ -48,7 +42,6 @@ video.bg{
     align-items:center;
     text-align:center;
 }
-
 .box{
     background:rgba(0,0,0,0.7);
     padding:30px;
@@ -56,8 +49,6 @@ video.bg{
     width:90%;
     max-width:360px;
 }
-
-/* LOGO */
 .logo{
     width:110px;
     height:110px;
@@ -67,19 +58,15 @@ video.bg{
     border:3px solid red;
     cursor:pointer;
 }
-
 .logo img{
     width:100%;
     height:100%;
     object-fit:cover;
 }
-
 h2{
     margin-top:15px;
     margin-bottom:20px;
 }
-
-/* INPUT */
 input{
     width:100%;
     padding:10px;
@@ -87,8 +74,6 @@ input{
     border:none;
     margin-top:10px;
 }
-
-/* BUTTON */
 button{
     width:100%;
     padding:12px;
@@ -98,11 +83,9 @@ button{
     font-size:16px;
     cursor:pointer;
 }
-
 .verify{ background:#ff0000; color:white; }
 .copy{ background:#00c853; color:white; display:none; }
 .king{ background:#2979ff; color:white; display:none; }
-
 .status{
     margin-top:15px;
     font-weight:bold;
@@ -112,7 +95,6 @@ button{
 
 <body>
 
-<!-- GANTI VIDEO -->
 <video class="bg" autoplay muted loop>
     <source src="background.mp4" type="video/mp4">
 </video>
@@ -121,32 +103,24 @@ button{
 <div class="container">
 <div class="box">
 
-    <!-- LOGO YOUTUBE -->
     <div class="logo" onclick="openYT()">
         <img src="logo.png">
     </div>
 
     <h2>The King</h2>
 
-    <!-- VERIFIKASI -->
     <button id="verifyBtn" class="verify" onclick="startVerify()">Verifikasi</button>
-
     <div id="status" class="status"></div>
 
-    <!-- INPUT KEY (PASTE ONLY) -->
     <input id="keyInput" placeholder="Tempel Key di sini"
-    style="display:none"
-    onkeydown="return false">
+    style="display:none" onkeydown="return false">
 
-    <!-- UNLOCK KEY -->
     <button id="unlockBtn" class="verify" style="display:none"
     onclick="openGetKey()">Unlock Key</button>
 
-    <!-- CEK KEY -->
     <button id="checkKeyBtn" class="verify" style="display:none"
     onclick="checkKey()">Cek Key</button>
 
-    <!-- HASIL -->
     <button id="copyScript" class="copy" onclick="copyScript()">Salin Script</button>
     <button id="copyWeb" class="copy" onclick="copyWeb()">Salin Web</button>
     <button id="kingBtn" class="king" onclick="openKing()">The King</button>
@@ -154,24 +128,20 @@ button{
 </div>
 </div>
 
-<script>
-/* ======================
-   GANTI LINK DI SINI
-====================== */
-const GET_KEY_URL = "https://username.github.io/get-key/";
-const YT_URL = "https://youtube.com";
+<!-- 🔑 PANGGIL KEY -->
+<script src="key.js"></script>
 
-/* ====================== */
+<script>
+const GET_KEY_URL = "https://arsalways01.github.io/Get-Key-Web/?sfl=ok";
+const YT_URL = "https://youtube.com/@arsalwaysss105?si=AmCyvuiCZ_9S1uzc";
 
 let time = 10;
 let timer;
 
-/* OPEN YOUTUBE */
 function openYT(){
     window.open(YT_URL, "_blank");
 }
 
-/* VERIFIKASI 10 DETIK */
 function startVerify(){
     const btn = document.getElementById("verifyBtn");
     const status = document.getElementById("status");
@@ -196,12 +166,11 @@ function startVerify(){
     },1000);
 }
 
-/* OPEN WEB GET KEY */
 function openGetKey(){
     window.open(GET_KEY_URL, "_blank");
 }
 
-/* CEK KEY */
+/* ✅ VALIDASI LANGSUNG DARI key.js */
 function checkKey(){
     const key = document.getElementById("keyInput").value.trim();
     const status = document.getElementById("status");
@@ -211,10 +180,13 @@ function checkKey(){
         return;
     }
 
-    /* VALIDASI CONTOH */
-    if(key.startsWith("KING-")){
-        status.innerText = "✅ Key Valid";
+    if(typeof KEYS === "undefined"){
+        status.innerText = "❌ key.js tidak terbaca";
+        return;
+    }
 
+    if(KEYS.includes(key)){
+        status.innerText = "✅ Key Valid";
         document.getElementById("copyScript").style.display = "block";
         document.getElementById("copyWeb").style.display = "block";
         document.getElementById("kingBtn").style.display = "block";
@@ -223,21 +195,16 @@ function checkKey(){
     }
 }
 
-/* COPY SCRIPT */
 function copyScript(){
-    const script = `-- SCRIPT THE KING
-print("Success Get Key")`;
-    navigator.clipboard.writeText(script);
+    navigator.clipboard.writeText('-- SCRIPT THE KING\nprint("Success Get Key")');
     alert("Script berhasil disalin");
 }
 
-/* COPY WEB */
 function copyWeb(){
     navigator.clipboard.writeText(window.location.href);
     alert("Web berhasil disalin");
 }
 
-/* THE KING */
 function openKing(){
     window.open(YT_URL, "_blank");
 }
